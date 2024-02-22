@@ -6,7 +6,8 @@ public class MySingleton
 {
     public static string currentDirection = "?";
     private static Room[] theRooms = new Room[100];
-    private static int numRooms = 0;
+    public static int numRooms = 0;
+    public static bool amAtMiddleOfRoom = false;
 
     public static void addRoom(Room r)
     {
