@@ -38,28 +38,61 @@ public class DungeonController : MonoBehaviour
     void Start()
     {
         MySingleton.theCurrentRoom = new Room("a room");
-        MySingleton.addRoom(MySingleton.theCurrentRoom); //not using this yet
-
+        if(MySingleton.numRooms < 1)
+        {
+            MySingleton.addRoom(MySingleton.theCurrentRoom); //not using this yet
+        }
         int openDoorIndex = Random.Range(0,4);
         this.closedDoors[openDoorIndex].SetActive(false); //visually make an open door
-        MySingleton.theCurrentRoom.setOpenDoor(this.mapIndexToStringForExit(openDoorIndex));
 
-        for(int i = 0; i < 4; i++)
+        //keep the door you enter from open
+        if(MySingleton.currentDirection.Equals("north"))
         {
-            //if I am not looking at the already open door
-            if(openDoorIndex != i)
-            {
-                //should this door be open or not?
-                int coinFlip = Random.Range(0,2);
-                if(coinFlip == 1)
-                {
-                    //open the door in that direction
-                    this.closedDoors[i].SetActive(false); //visually make an open door
-                    MySingleton.theCurrentRoom.setOpenDoor(this.mapIndexToStringForExit(i));
+            this.closedDoors[1].SetActive(false);
+        }
 
+        if(MySingleton.currentDirection.Equals("south"))
+        {
+            this.closedDoors[0].SetActive(false);
+        }
+
+        if(MySingleton.currentDirection.Equals("east"))
+        {
+            this.closedDoors[3].SetActive(false);
+        }
+
+        if(MySingleton.currentDirection.Equals("west"))
+        {
+            this.closedDoors[2].SetActive(false);
+        }
+
+
+        MySingleton.theCurrentRoom.setOpenDoor(this.mapIndexToStringForExit(openDoorIndex));
+        if(MySingleton.numRooms < 1)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+            //if I am not looking at the already open door
+                if(openDoorIndex != i)
+                {
+                    //should this door be open or not?
+                    int coinFlip = Random.Range(0,2);
+                    if(coinFlip == 1)
+                    {
+                        //open the door in that direction
+                        this.closedDoors[i].SetActive(false); //visually make an open door
+                        MySingleton.theCurrentRoom.setOpenDoor(this.mapIndexToStringForExit(i));
+
+                    }
                 }
             }
         }
+
+        else
+        {
+            this.closedDoors[i] = MySingleton.theRooms[numRooms].closedDoors;
+        }
+        
     }
 
     // Update is called once per frame
