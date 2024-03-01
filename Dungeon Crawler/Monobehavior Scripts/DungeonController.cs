@@ -7,53 +7,28 @@ public class DungeonController : MonoBehaviour
     public GameObject[] closedDoors;
 
     // Start is called before the first frame update
-    private string mapIndexToStringForExit(int index)
-    {
-        if(index == 0)
-        {
-            return "north";
-        }
-        else if (index == 1)
-        {
-            return "south";
-        }
-        else if (index == 2)
-        {
-            return "east";
-        }
-        else if (index == 3)
-        {
-            return "west";
-        }
-        else
-        {
-            return "?";
-        }
-    }
+   
     void Start()
     {
-        MySingleton.theCurrentRoom = new Room("a room");
-        MySingleton.addRoom(MySingleton.theCurrentRoom); //Not using this yet...
-
-        int openDoorIndex = Random.Range(0, 4);
-        this.closedDoors[openDoorIndex].SetActive(false); //visually make an open door
-        MySingleton.theCurrentRoom.setOpenDoor(this.mapIndexToStringForExit(openDoorIndex));
-
-        for(int i = 0; i < 4; i++)
+        Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
+        if(theCurrentRoom.hasExit("north"))
         {
-            //if I am not looking at the already open door
-            if(openDoorIndex != i)
-            {
-                //should this door be open or not?
-                int coinFlip = Random.Range(0, 2);
-                if(coinFlip == 1)
-                {
-                    //open the door in that direction
-                    this.closedDoors[i].SetActive(false); //visually make an open door
-                    MySingleton.theCurrentRoom.setOpenDoor(this.mapIndexToStringForExit(i));
+            this.closedDoors[0].SetActive(true);
+        }
 
-                }
-            }
+        if(theCurrentRoom.hasExit("south"))
+        {
+            this.closedDoors[1].SetActive(true);
+        }
+
+        if(theCurrentRoom.hasExit("east"))
+        {
+            this.closedDoors[2].SetActive(true);
+        }
+
+        if(theCurrentRoom.hasExit("west"))
+        {
+            this.closedDoors[3].SetActive(true);
         }
        
     }

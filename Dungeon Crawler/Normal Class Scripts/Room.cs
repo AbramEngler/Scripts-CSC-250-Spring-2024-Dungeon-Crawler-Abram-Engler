@@ -5,29 +5,43 @@ using UnityEngine;
 public class Room
 {
     private string name;
-    private string[] theOpenDoors = new string[4];
-    private int howManyOpenDoors = 0;
+
+
+    private Exit[] theExits = new Exit[4];
+    private int howManyExits = 0;
+    private Player currentPlayer;
     
     public Room(string name)
     {
         this.name = name;
+        this.currentPlayer = null;
     }
 
-    public void setOpenDoor(string direction)
+    public void addPlayer(Player thePlayer)
     {
-        this.theOpenDoors[howManyOpenDoors] = direction;
-        this.howManyOpenDoors++;
+        this.currentPlayer = thePlayer;
     }
 
-    public bool isOpenDoor(string direction)
+    public bool hasExit(string direction)
     {
-        for(int i = 0; i < this.howManyOpenDoors; i++)
+        //does this Room have a exit in the direction of "direction"?
+        for(int i = 0; i < this.howManyExits; i++)
         {
-            if(direction.Equals(this.theOpenDoors[i]))
+            if(this.theExits[i].getDirection().Equals(direction))
             {
                 return true;
             }
         }
-        return false; //whatever direction you wanted to go does NOT have an open door
+        return false;
+    }
+
+    public void addExit(string direction, Room destinationRoom)
+    {
+        if(this.howManyExits < this.theExits.Length)
+        {
+            Exit e = new Exit(direction, destinationRoom);
+            this.theExits[this.howManyExits] = e;
+            this.howManyExits++;
+        }
     }
 }
