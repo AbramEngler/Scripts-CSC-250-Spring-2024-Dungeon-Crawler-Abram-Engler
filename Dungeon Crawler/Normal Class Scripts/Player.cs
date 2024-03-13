@@ -18,4 +18,8 @@ public class Player
         return this.currentRoom;
     }
     
+    public void setCurrentRoom(Room r)
+    {
+        this.currentRoom = r;
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DungeonController : MonoBehaviour
 {
-    public GameObject[] closedDoors;
+    public GameObject northDoor, southDoor, eastDoor, westDoor;
 
     // Start is called before the first frame update
    
@@ -13,22 +13,22 @@ public class DungeonController : MonoBehaviour
         Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
         if(theCurrentRoom.hasExit("north"))
         {
-            this.closedDoors[0].SetActive(true);
+            this.northDoor.SetActive(false);
         }
 
         if(theCurrentRoom.hasExit("south"))
         {
-            this.closedDoors[1].SetActive(true);
+            this.southDoor.SetActive(false);
         }
 
         if(theCurrentRoom.hasExit("east"))
         {
-            this.closedDoors[2].SetActive(true);
+            this.eastDoor.SetActive(false);
         }
 
         if(theCurrentRoom.hasExit("west"))
         {
-            this.closedDoors[3].SetActive(true);
+            this.westDoor.SetActive(false);
         }
        
     }

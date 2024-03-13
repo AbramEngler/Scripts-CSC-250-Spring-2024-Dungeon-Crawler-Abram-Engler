@@ -129,7 +129,7 @@ public class PlayerInClassExample : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.UpArrow) && !this.amMoving && MySingleton.theCurrentRoom.isOpenDoor("north"))
+        if (Input.GetKeyUp(KeyCode.UpArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("north"))
         {
             this.amMoving = true;
             this.turnOnExits();
@@ -137,7 +137,7 @@ public class PlayerInClassExample : MonoBehaviour
             this.gameObject.transform.LookAt(this.northExit.transform.position);
         }
 
-        if (Input.GetKeyUp(KeyCode.DownArrow) && !this.amMoving && MySingleton.theCurrentRoom.isOpenDoor("south"))
+        if (Input.GetKeyUp(KeyCode.DownArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("south"))
         {
             this.amMoving = true;
             this.turnOnExits();
@@ -145,7 +145,7 @@ public class PlayerInClassExample : MonoBehaviour
             this.gameObject.transform.LookAt(this.southExit.transform.position);
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && !this.amMoving && MySingleton.theCurrentRoom.isOpenDoor("west"))
+        if (Input.GetKeyUp(KeyCode.LeftArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("west"))
         {
             this.amMoving = true;
             this.turnOnExits();
@@ -153,7 +153,7 @@ public class PlayerInClassExample : MonoBehaviour
             this.gameObject.transform.LookAt(this.westExit.transform.position);
         }
 
-        if (Input.GetKeyUp(KeyCode.RightArrow) && !this.amMoving && MySingleton.theCurrentRoom.isOpenDoor("east"))
+        if (Input.GetKeyUp(KeyCode.RightArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("east"))
         {
             this.amMoving = true;
             this.turnOnExits();
