@@ -106,6 +106,9 @@ public class PlayerController : MonoBehaviour
             print("Loading scene");
 
             EditorSceneManager.LoadScene("DungeonRoom");
+
+            MySingleton.thePlayer.getCurrentRoom().takeExit(MySingleton.currentDirection); //update the room to the destination Room of this exit
+            //print(MySingleton.thePlayer.getCurrentRoom().name); //print out name of room to debug
         }
         else if(other.CompareTag("MiddleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {

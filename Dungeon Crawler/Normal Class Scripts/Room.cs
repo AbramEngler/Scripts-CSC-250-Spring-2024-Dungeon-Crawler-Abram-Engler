@@ -36,6 +36,21 @@ public class Room
         return false;
     }
 
+    public void takeExit(string direction) //take the exit to the destination Room of this exit
+    {
+        for(int i = 0; i < this.howManyExits; i++)
+        {
+            if(this.theExits[i].getDirection().Equals(direction))
+            {
+                //we have the exit that leads to the correct room
+                Room destination = this.theExits[i].getDestinationRoom();
+                destination.addPlayer(this.currentPlayer);
+                this.currentPlayer = null;
+                return;
+            }
+        }
+    }
+
     public void addExit(string direction, Room destinationRoom)
     {
         if(this.howManyExits < this.theExits.Length)
