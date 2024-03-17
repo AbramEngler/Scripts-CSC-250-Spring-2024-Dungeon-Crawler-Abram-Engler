@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
+using System.Threading;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class PlayerController : MonoBehaviour
     private float speed = 5.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
+
+    private int pellets;
+    public TextMeshProUGUI pelletCountText;
 
     private void turnOffExits()
     {
@@ -31,6 +36,11 @@ public class PlayerController : MonoBehaviour
         this.westExit.gameObject.SetActive(true);
     }
 
+    private void setPelletCountText()
+    {
+        pelletCountText.text = "Pellets:" + pellets;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +52,10 @@ public class PlayerController : MonoBehaviour
         //disable the middle collider until we know what our initial state will be
         //it should already be disabled by default, but for clarity, lets do it here
         this.middleOfTheRoom.SetActive(false);
+
+        pellets = MySingleton.thePlayer.getCurrentPelletCount();
+
+        this.setPelletCountText();
 
         if (!MySingleton.currentDirection.Equals("?"))
         {
@@ -107,9 +121,22 @@ public class PlayerController : MonoBehaviour
 
             EditorSceneManager.LoadScene("DungeonRoom");
 
-            MySingleton.thePlayer.getCurrentRoom().takeExit(MySingleton.currentDirection); //update the room to the destination Room of this exit
+            MySingleton.thePlayer.getCurrentRoom().removePlayer(MySingleton.currentDirection);
+
+            //MySingleton.thePlayer.getCurrentRoom().takeExit(MySingleton.currentDirection); //update the room to the destination Room of this exit
             //print(MySingleton.thePlayer.getCurrentRoom().name); //print out name of room to debug
         }
+
+        else if(other.CompareTag("power-pellet"))
+        {
+            other.gameObject.SetActive(false); //make pellet disappear
+            MySingleton.thePlayer.getCurrentRoom().collectPellet(MySingleton.currentDirection, MySingleton.thePlayer.getCurrentRoom());
+
+            pellets++;
+            MySingleton.thePlayer.pelletCount++;
+            this.setPelletCountText();
+        }
+
         else if(other.CompareTag("MiddleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
             //we have hit the middle of the room, so lets turn off the collider

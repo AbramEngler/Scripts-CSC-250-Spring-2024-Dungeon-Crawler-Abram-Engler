@@ -7,10 +7,13 @@ public class Player
     private string name;
     private Room currentRoom;
 
+    public int pelletCount;
+
     public Player(string name)
     {
         this.name = name;
         this.currentRoom = null;
+        this.pelletCount = 0;
     }
 
     public Room getCurrentRoom()
@@ -21,5 +24,10 @@ public class Player
     public void setCurrentRoom(Room r)
     {
         this.currentRoom = r;
+    }
+
+    public int getCurrentPelletCount()
+    {
+        return this.pelletCount;
     }
 }
