@@ -11,14 +11,12 @@ public class Room
     private int howManyExits = 0;
     private Player currentPlayer;
 
-    private PowerPellet[] thePowerPellets = new PowerPellet[4];
+    private Pellet northPellet = null;
+    private Pellet southPellet = null;
+    private Pellet eastPellet = null;
+    private Pellet westPellet = null;
 
-    private int howManyPowerPellets = 0;
-
-    public bool northPelletIsCollected = false;
-    public bool southPelletIsCollected = false;
-    public bool eastPelletIsCollected = false;
-    public bool westPelletIsCollected = false;
+    
     
     public Room(string name)
     {
@@ -31,6 +29,92 @@ public class Room
         this.currentPlayer = thePlayer;
         this.currentPlayer.setCurrentRoom(this); //this updates the player to their new current room
     }
+
+    public void addPellet(Pellet p, string direction)
+    {
+        if(direction.Equals("north"))
+        {
+            this.northPellet = p;
+        }
+
+        else if(direction.Equals("south"))
+        {
+            this.southPellet = p;
+        }
+
+        else if(direction.Equals("east"))
+        {
+            this.eastPellet = p;
+        }
+
+        else if(direction.Equals("west"))
+        {
+            this.westPellet = p;
+        }
+
+        else
+        {
+            Debug.Log("Not valid direction");
+        }
+    }
+
+    public void removePellet(string direction)
+    {
+        if(direction.Equals("north"))
+        {
+            this.northPellet = null;
+        }
+
+        else if(direction.Equals("south"))
+        {
+            this.southPellet = null;
+        }
+
+        else if(direction.Equals("east"))
+        {
+            this.eastPellet = null;
+        }
+
+        else if(direction.Equals("west"))
+        {
+            this.westPellet = null;
+        }
+
+        else
+        {
+            Debug.Log("Not valid direction to remove");
+        }
+    }
+
+    public bool hasPellet(string direction)
+    {
+        if(direction.Equals("north"))
+        {
+            return this.northPellet != null;
+        }
+
+        else if(direction.Equals("south"))
+        {
+            return this.southPellet != null;
+        }
+
+        else if(direction.Equals("east"))
+        {
+            return this.eastPellet = !null;
+        }
+
+        else if(direction.Equals("west"))
+        {
+            return this.westPellet != null;
+        }
+
+        else
+        {
+            Debug.Log("Not valid direction to remove");
+        }
+    }
+
+
 
     public bool hasExit(string direction)
     {
@@ -53,39 +137,39 @@ public class Room
         this.currentPlayer = null; //remove the player that just left from this room
     }
 
-    public bool collectPellet(string direction, Room pelletRoom)
-    {
-        // bool pelletIsCollected = true;
-        // return pelletIsCollected;
-        if(MySingleton.currentDirection.Equals("north"))
-        {
-            northPelletIsCollected = true;
-            return northPelletIsCollected;
-        }
+    // public bool collectPellet(string direction, Room pelletRoom)
+    // {
+    //     // bool pelletIsCollected = true;
+    //     // return pelletIsCollected;
+    //     if(MySingleton.currentDirection.Equals("north"))
+    //     {
+    //         northPelletIsCollected = true;
+    //         return northPelletIsCollected;
+    //     }
 
-        if(MySingleton.currentDirection.Equals("south"))
-        {
-            southPelletIsCollected = true;
-            return southPelletIsCollected;
-        }
+    //     if(MySingleton.currentDirection.Equals("south"))
+    //     {
+    //         southPelletIsCollected = true;
+    //         return southPelletIsCollected;
+    //     }
 
-        if(MySingleton.currentDirection.Equals("east"))
-        {
-            eastPelletIsCollected = true;
-            return eastPelletIsCollected;
-        }
+    //     if(MySingleton.currentDirection.Equals("east"))
+    //     {
+    //         eastPelletIsCollected = true;
+    //         return eastPelletIsCollected;
+    //     }
 
-        if(MySingleton.currentDirection.Equals("west"))
-        {
-            westPelletIsCollected = true;
-            return westPelletIsCollected;
-        }
+    //     if(MySingleton.currentDirection.Equals("west"))
+    //     {
+    //         westPelletIsCollected = true;
+    //         return westPelletIsCollected;
+    //     }
 
-        else
-        {
-            return false;
-        }
-    }
+    //     else
+    //     {
+    //         return false;
+    //     }
+    // }
 
     // public bool checkIfPelletIsCollected(string direction, Room pelletRoom)
     // {
@@ -135,9 +219,9 @@ public class Room
             this.theExits[this.howManyExits] = e;
             this.howManyExits++;
 
-            PowerPellet p = new PowerPellet(direction, this);
-            this.thePowerPellets[this.howManyPowerPellets] = p;
-            this.howManyPowerPellets++;
+            // PowerPellet p = new PowerPellet(direction, this);
+            // this.thePowerPellets[this.howManyPowerPellets] = p;
+            // this.howManyPowerPellets++;
         }
     }
 }
