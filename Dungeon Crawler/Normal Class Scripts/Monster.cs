@@ -15,4 +15,14 @@ public class Monster
         // this.position = position;
         // this.hp = hp;
     }
+
+    // public string getMonsterPosition()
+    // {
+    //     return this.position;
+    // }
+
+    // public int getMonsterHp()
+    // {
+    //     return this.hp;
+    // }
 }
