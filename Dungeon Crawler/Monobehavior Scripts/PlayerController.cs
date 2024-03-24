@@ -134,6 +134,18 @@ public class PlayerController : MonoBehaviour
             //programmatically remove pellet so it doesnt show up again
             Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
             theCurrentRoom.removePellet(MySingleton.currentDirection);
+
+
+            // if(MySingleton.isThisTheFirstTimeInTheRoom)
+            // {
+            //     theCurrentRoom.removePellet(MySingleton.currentDirection);
+            //     MySingleton.isThisTheFirstTimeInTheRoom = false;
+            // }
+
+            // else
+            // {
+            //     theCurrentRoom.removePellet(MySingleton.flipDirection(MySingleton.currentDirection));
+            // }
             
             // MySingleton.thePlayer.getCurrentRoom().collectPellet(MySingleton.currentDirection, MySingleton.thePlayer.getCurrentRoom());
 
