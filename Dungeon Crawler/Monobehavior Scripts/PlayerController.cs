@@ -134,7 +134,8 @@ public class PlayerController : MonoBehaviour
             //programmatically remove pellet so it doesnt show up again
             Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
             theCurrentRoom.removePellet(MySingleton.currentDirection);
-
+            
+            EditorSceneManager.LoadScene("FightScene");
 
             // if(MySingleton.isThisTheFirstTimeInTheRoom)
             // {
