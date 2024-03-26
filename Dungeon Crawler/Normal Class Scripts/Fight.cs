@@ -65,8 +65,7 @@ public class Fight
     {
             this.attackerOriginalPosition = this.currentAttackerGO.transform.position;
             this.rigidBodyOfAttacker = this.currentAttackerGO.GetComponent<Rigidbody>();
-            //this.attackMoveDistance *= -1;
-
+            
             if (this.currentAttackerGO == this.thePlayerGO)
             {
                 this.currentAttackerGO = this.theMonsterGO;
