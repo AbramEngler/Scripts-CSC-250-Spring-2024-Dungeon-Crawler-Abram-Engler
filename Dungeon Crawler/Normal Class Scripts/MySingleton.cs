@@ -8,6 +8,9 @@ public class MySingleton
     public static Player thePlayer;
     public static Dungeon theDungeon = MySingleton.generateDungeon();
 
+    public static bool isPlayerTurn = false;
+    public static bool isMonsterTurn = false;
+
     public static string flipDirection(string direction)
     {
         if(direction.Equals("north"))

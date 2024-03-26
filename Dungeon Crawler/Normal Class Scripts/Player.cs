@@ -10,6 +10,9 @@ public class Player : Inhabitant
 
     public Player(string name) : base(name)
     {        
+        this.ac = 8;
+        this.hp = 15;
+        //this.damage = Random.Range(1, 6);
         //this.pelletCount = 0;
     }
 

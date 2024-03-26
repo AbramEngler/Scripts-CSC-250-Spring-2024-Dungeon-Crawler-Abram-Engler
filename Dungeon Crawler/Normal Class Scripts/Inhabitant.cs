@@ -6,6 +6,10 @@ public abstract class Inhabitant
 {
     protected string name;
     protected Room currentRoom;
+    protected int hp;
+    protected int ac;
+    protected int damage;
+
 
     public Inhabitant(string name)
     {
@@ -13,6 +17,10 @@ public abstract class Inhabitant
         this.currentRoom = null;
     }
 
+    public string getName()
+    {
+        return this.name;
+    }
     public Room getCurrentRoom()
     {
         return this.currentRoom;
@@ -21,5 +29,35 @@ public abstract class Inhabitant
     public void setCurrentRoom(Room r)
     {
         this.currentRoom = r;
+    }
+
+    public bool isDead()
+    {
+        return this.hp <= 0;
+    }
+
+    public int getAC()
+    {
+        return this.ac;
+    }
+
+    public int getHP()
+    {
+        return this.hp;
+    }
+
+    public void setDamage(int dmg)
+    {
+        this.damage = dmg;
+    }
+
+    public int getDamage()
+    {
+        return this.damage;
+    }
+
+    public void takeDamage(int damage)
+    {
+        this.hp = this.hp - damage;
     }
 }
