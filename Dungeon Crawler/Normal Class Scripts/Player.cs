@@ -6,20 +6,20 @@ public class Player : Inhabitant
 {
 
 
-    //public int pelletCount;
+    public int pelletCount;
 
     public Player(string name) : base(name)
     {        
         // this.ac = 8;
         // this.hp = 15;
         //this.damage = Random.Range(1, 6);
-        //this.pelletCount = 0;
+        this.pelletCount = 0;
     }
 
 
 
-    // public int getCurrentPelletCount()
-    // {
-    //     return this.pelletCount;
-    // }
+    public int getCurrentPelletCount()
+    {
+        return this.pelletCount;
+    }
 }

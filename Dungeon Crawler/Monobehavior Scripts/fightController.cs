@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEditor.SceneManagement;
 
 public class fightController : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class fightController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.splashText_TMP.color = Color.white;
         this.theMonster = new Monster("Zombie");
         this.updateHP();
         
@@ -45,6 +47,7 @@ public class fightController : MonoBehaviour
 
     private void tryAttack(Inhabitant attacker, Inhabitant defender)
     {
+        this.splashText_TMP.text = "";
         //have attacker hit the defender
         int attackRoll = Random.Range(0,20) + 1;
         if(attackRoll >= defender.getAC())
@@ -54,11 +57,17 @@ public class fightController : MonoBehaviour
             defender.takeDamage(damageRoll);
             if (this.currentAttacker == this.hero_GO)
             {
-                this.splashText_TMP.text = MySingleton.thePlayer.getName() + " hits for " + damageRoll + " HP!"; 
+                this.splashText_TMP.color = Color.red;
+                //this.splashText_TMP.text = MySingleton.thePlayer.getName() + " hits for " + damageRoll + " HP!";  
+                this.splashText_TMP.text = this.theMonster.getName() + " hits for " + damageRoll + " HP!"; 
+
             }
             else if(this.currentAttacker == this.monster_GO)
             {
-                this.splashText_TMP.text = this.theMonster.getName() + " hits for " + damageRoll + " HP!"; 
+                this.splashText_TMP.color = Color.red;
+                //this.splashText_TMP.text = this.theMonster.getName() + " hits for " + damageRoll + " HP!"; 
+                this.splashText_TMP.text = MySingleton.thePlayer.getName() + " hits for " + damageRoll + " HP!";  
+
             }
         }
 
@@ -67,10 +76,12 @@ public class fightController : MonoBehaviour
             print("Attacker Misses!");
             if (this.currentAttacker == this.hero_GO)
             {
+                this.splashText_TMP.color = Color.yellow;
                 this.splashText_TMP.text = MySingleton.thePlayer.getName() + " misses!"; 
             }
             else if(this.currentAttacker == this.monster_GO)
             {
+                this.splashText_TMP.color = Color.yellow;
                 this.splashText_TMP.text = this.theMonster.getName() + " misses!"; 
             }
         }
@@ -98,6 +109,11 @@ public class fightController : MonoBehaviour
                     this.victory_TMP.text = MySingleton.thePlayer.getName() + " wins!";
                     monster_GO.SetActive(false);
                     StopCoroutine(fight());
+
+                    yield return new WaitForSeconds(5);
+
+                    MySingleton.thePlayer.pelletCount++;
+                    EditorSceneManager.LoadScene("DungeonRoom");
                 }
                 else
                 {
@@ -118,6 +134,11 @@ public class fightController : MonoBehaviour
                     this.victory_TMP.text = this.theMonster.getName() + " wins!";
                     hero_GO.SetActive(false);
                     StopCoroutine(fight());
+
+                    yield return new WaitForSeconds(5);
+
+                    MySingleton.thePlayer.setCurrentRoom(MySingleton.theDungeon.startRoom);
+                    EditorSceneManager.LoadScene("DungeonRoom");
 
                 }
                 else

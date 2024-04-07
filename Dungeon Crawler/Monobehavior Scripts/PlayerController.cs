@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
 
-    // private int pellets;
-    // public TextMeshProUGUI pelletCountText;
+    private int pellets;
+    public TextMeshProUGUI pelletCountText;
 
     private void turnOffExits()
     {
@@ -36,10 +36,10 @@ public class PlayerController : MonoBehaviour
         this.westExit.gameObject.SetActive(true);
     }
 
-    // private void setPelletCountText()
-    // {
-    //     pelletCountText.text = "Pellets:" + pellets;
-    // }
+    private void setPelletCountText()
+    {
+        pelletCountText.text = "Pellets:" + pellets;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -53,9 +53,9 @@ public class PlayerController : MonoBehaviour
         //it should already be disabled by default, but for clarity, lets do it here
         this.middleOfTheRoom.SetActive(false);
 
-        // pellets = MySingleton.thePlayer.getCurrentPelletCount();
+        pellets = MySingleton.thePlayer.getCurrentPelletCount();
 
-        // this.setPelletCountText();
+        this.setPelletCountText();
 
         if (!MySingleton.currentDirection.Equals("?"))
         {
@@ -137,9 +137,8 @@ public class PlayerController : MonoBehaviour
             
             EditorSceneManager.LoadScene("FightScene");
 
-            // pellets++;
-            // MySingleton.thePlayer.pelletCount++;
-            // this.setPelletCountText();
+            //MySingleton.thePlayer.pelletCount++;
+            this.setPelletCountText();
         }
 
         else if(other.CompareTag("MiddleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))

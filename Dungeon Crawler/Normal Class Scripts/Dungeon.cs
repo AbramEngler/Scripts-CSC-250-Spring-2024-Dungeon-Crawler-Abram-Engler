@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class Dungeon 
 {
     private string name;
-    private Room startRoom;
+    public Room startRoom;
     private Room currentRoom;
     private Player thePlayer;
 
@@ -19,10 +20,15 @@ public class Dungeon
         this.startRoom = r;
     }
 
+    public Room getStartRoom(Room r)
+    {
+        return this.startRoom;
+    }
+
     public void addPlayer(Player thePlayer)
     {
         this.thePlayer = thePlayer;
         this.startRoom.addPlayer(thePlayer);
     }
-    
+
 }

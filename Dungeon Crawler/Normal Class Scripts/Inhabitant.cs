@@ -16,7 +16,7 @@ public abstract class Inhabitant
         this.name = name;
         this.currentRoom = null;
         this.hp = Random.Range(10, 16);
-        this.ac = Random.Range(8, 17);
+        this.ac = Random.Range(5, 10);
     }
 
     public string getName()
