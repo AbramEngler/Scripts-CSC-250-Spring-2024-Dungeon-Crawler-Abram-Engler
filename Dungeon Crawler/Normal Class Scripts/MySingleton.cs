@@ -10,7 +10,7 @@ public class MySingleton
 
     public static bool isPlayerTurn = false;
     public static bool isMonsterTurn = false;
-    public static int currentPellets = 0;
+    public static int currentPellets = 10;
 
     public static string flipDirection(string direction)
     {

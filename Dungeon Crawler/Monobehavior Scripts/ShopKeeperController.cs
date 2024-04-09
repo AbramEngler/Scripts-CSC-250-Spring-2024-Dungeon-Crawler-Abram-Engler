@@ -29,7 +29,7 @@ public class ShopKeeperController : MonoBehaviour
             this.playerShopPelletCount_TMP.text = "" + MySingleton.currentPellets;
             this.item1.SetActive(false);
             this.item1_TMP.text = "";
-            MySingleton.thePlayer.setBonusDamage(100);
+            MySingleton.thePlayer.setBonusDamage(MySingleton.thePlayer.getBonusDamage() + 100);
         }
 
         if(Input.GetKeyUp(KeyCode.Escape))
