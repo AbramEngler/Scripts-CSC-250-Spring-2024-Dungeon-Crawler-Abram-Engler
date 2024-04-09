@@ -53,7 +53,16 @@ public class fightController : MonoBehaviour
         {
             //attacker will hit the defender
             int damageRoll = Random.Range(0, 4) + 2; //damage between 2 and 5
-            defender.takeDamage(damageRoll);
+            if(defender == MySingleton.thePlayer)
+            {
+                defender.takeDamage(damageRoll);
+            }
+
+            if(defender == theMonster)
+            {
+                defender.takeDamage(damageRoll + MySingleton.thePlayer.getBonusDamage());
+            }
+
             if (this.currentAttacker == this.hero_GO)
             {
                 this.splashText_TMP.color = Color.red;
@@ -65,7 +74,7 @@ public class fightController : MonoBehaviour
             {
                 this.splashText_TMP.color = Color.red;
                 //this.splashText_TMP.text = this.theMonster.getName() + " hits for " + damageRoll + " HP!"; 
-                this.splashText_TMP.text = MySingleton.thePlayer.getName() + " hits for " + damageRoll + " HP!";  
+                this.splashText_TMP.text = MySingleton.thePlayer.getName() + " hits for " + damageRoll + " + " + MySingleton.thePlayer.getBonusDamage()  + " HP!";  
 
             }
         }
@@ -112,7 +121,7 @@ public class fightController : MonoBehaviour
 
                     //yield return new WaitForSeconds(5);
                     MySingleton.currentPellets++;
-                    MySingleton.thePlayer.pelletCount++;
+                    //MySingleton.thePlayer.pelletCount++;
                     //EditorSceneManager.LoadScene("DungeonRoom");
                 }
                 else

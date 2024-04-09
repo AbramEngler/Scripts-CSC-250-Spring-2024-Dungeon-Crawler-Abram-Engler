@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
 
-    private int pellets;
-    public TextMeshProUGUI pelletCountText;
+    //private int pellets;
+    //public TextMeshProUGUI pelletCountText;
 
     public TextMeshPro pellet_TMP;
 
@@ -38,10 +38,10 @@ public class PlayerController : MonoBehaviour
         this.westExit.gameObject.SetActive(true);
     }
 
-    private void setPelletCountText()
-    {
-        pelletCountText.text = "Pellets:" + pellets;
-    }
+    // private void setPelletCountText()
+    // {
+    //     pelletCountText.text = "Pellets:" + pellets;
+    // }
 
     // Start is called before the first frame update
     void Start()
@@ -56,9 +56,9 @@ public class PlayerController : MonoBehaviour
         //it should already be disabled by default, but for clarity, lets do it here
         this.middleOfTheRoom.SetActive(false);
 
-        pellets = MySingleton.thePlayer.getCurrentPelletCount();
+        // pellets = MySingleton.thePlayer.getCurrentPelletCount();
 
-        this.setPelletCountText();
+        // this.setPelletCountText();
 
         if (!MySingleton.currentDirection.Equals("?"))
         {
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
             EditorSceneManager.LoadScene("FightScene");
 
             //MySingleton.thePlayer.pelletCount++;
-            this.setPelletCountText();
+            //this.setPelletCountText();
         }
 
         else if(other.CompareTag("MiddleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
@@ -196,6 +196,11 @@ public class PlayerController : MonoBehaviour
             MySingleton.currentDirection = "east";
             this.gameObject.transform.LookAt(this.eastExit.transform.position);
 
+        }
+
+        if(Input.GetKeyUp(KeyCode.S))
+        {
+            EditorSceneManager.LoadScene("ShopKeeperScene");
         }
 
         //make the player move in the current direction
