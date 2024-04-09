@@ -6,6 +6,7 @@ using UnityEditor.SceneManagement;
 
 public class fightController : MonoBehaviour
 {
+    public bool isFightOver = false;
     public GameObject hero_GO, monster_GO;
     public TextMeshPro hero_hp_TMP;
     public TextMeshPro monster_hp_TMP;
@@ -15,8 +16,6 @@ public class fightController : MonoBehaviour
     private Animator theCurrentAnimator;
 
     private bool shouldAttack = true;
-
-    
     private Monster theMonster;
 
     // Start is called before the first frame update
@@ -109,11 +108,12 @@ public class fightController : MonoBehaviour
                     this.victory_TMP.text = MySingleton.thePlayer.getName() + " wins!";
                     monster_GO.SetActive(false);
                     StopCoroutine(fight());
+                    this.isFightOver = true;
 
-                    yield return new WaitForSeconds(5);
-
+                    //yield return new WaitForSeconds(5);
+                    MySingleton.currentPellets++;
                     MySingleton.thePlayer.pelletCount++;
-                    EditorSceneManager.LoadScene("DungeonRoom");
+                    //EditorSceneManager.LoadScene("DungeonRoom");
                 }
                 else
                 {
@@ -134,11 +134,12 @@ public class fightController : MonoBehaviour
                     this.victory_TMP.text = this.theMonster.getName() + " wins!";
                     hero_GO.SetActive(false);
                     StopCoroutine(fight());
+                    this.isFightOver = true;
 
-                    yield return new WaitForSeconds(5);
+                    //yield return new WaitForSeconds(5);
 
                     MySingleton.thePlayer.setCurrentRoom(MySingleton.theDungeon.startRoom);
-                    EditorSceneManager.LoadScene("DungeonRoom");
+                    //EditorSceneManager.LoadScene("DungeonRoom");
 
                 }
                 else
@@ -153,7 +154,11 @@ public class fightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(isFightOver && Input.GetKeyUp(KeyCode.Space))
+        {
+            MySingleton.thePlayer.resetStats(); //give player HP back after fight
+            EditorSceneManager.LoadScene("DungeonRoom");
+        }
         
     }
 }

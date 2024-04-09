@@ -8,6 +8,7 @@ public abstract class Inhabitant
     protected Room currentRoom;
     protected int hp;
     protected int ac;
+    protected int maxHP;
     protected int damage;
 
 
@@ -16,6 +17,7 @@ public abstract class Inhabitant
         this.name = name;
         this.currentRoom = null;
         this.hp = Random.Range(10, 16);
+        this.maxHP = this.hp;
         this.ac = Random.Range(5, 10);
     }
 

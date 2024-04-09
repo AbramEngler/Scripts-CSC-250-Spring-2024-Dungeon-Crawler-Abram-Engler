@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private int pellets;
     public TextMeshProUGUI pelletCountText;
 
+    public TextMeshPro pellet_TMP;
+
     private void turnOffExits()
     {
         this.northExit.gameObject.SetActive(false);
@@ -44,6 +46,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this.pellet_TMP.text = "" + MySingleton.currentPellets;
         //Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
 
         //disable all exits when the scene first loads

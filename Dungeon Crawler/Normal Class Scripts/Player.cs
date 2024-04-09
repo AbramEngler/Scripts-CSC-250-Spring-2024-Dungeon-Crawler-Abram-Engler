@@ -16,10 +16,13 @@ public class Player : Inhabitant
         this.pelletCount = 0;
     }
 
-
-
     public int getCurrentPelletCount()
     {
         return this.pelletCount;
+    }
+
+    public void resetStats()
+    {
+        this.hp = this.maxHP;
     }
 }
