@@ -50,6 +50,20 @@ public abstract class Inhabitant
         return this.hp;
     }
 
+    public void addHP(int numHP)
+    {
+        if(numHP > 0)
+        {
+            this.hp += numHP;
+            if(this.hp > this.maxHP)
+            {
+                this.hp = this.maxHP; //prevents overheal
+            }
+        }
+
+        
+    }
+
     public void setDamage(int dmg)
     {
         this.damage = dmg;
