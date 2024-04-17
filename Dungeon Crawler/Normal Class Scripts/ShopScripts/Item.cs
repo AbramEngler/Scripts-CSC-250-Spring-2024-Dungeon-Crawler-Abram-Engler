@@ -23,5 +23,5 @@ public class Item
 [System.Serializable]
 public class RootObject
 {
-    public Item[] items;
+    public Item[] items; //collection of items
 }

@@ -16,14 +16,15 @@ public class ShopController : MonoBehaviour
         this.readItemsData();
 
         //read json file with serialization
-        string jsonString = this.readItemsDataJson();
+        string jsonString = MySingleton.readJsonString();
 
         // Parse the JSON string
-        RootObject root = JsonUtility.FromJson<RootObject>(jsonString);
+        RootObject root = JsonUtility.FromJson<RootObject>(jsonString); //convert this JSON into a RootObject. turns text in JSON into a collection of Items
 
         // Output the data to the console
-        foreach (var item in root.items)
+        foreach (var item in root.items) //for each item in the item array, we will store that instance of item in items
         {
+            //formatted string, placeholders for the values we want to display
             print($"Name: {item.name}, Stat Impacted: {item.stat_impacted}, Modifier: {item.modifier}");
         }
         
@@ -80,43 +81,6 @@ public class ShopController : MonoBehaviour
         }
     }
 
-    private string readItemsDataJson()
-    {
-        string filePath = "Assets/Data Files/Items_Data.json"; // Path to the file
-        string answer = "";
-
-        // Check if the file exists
-        if (File.Exists(filePath))
-        {
-            try
-            {
-                print("Serialized JSON Parsing");
-                // Open the file to read from
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    string line;
-                    // Read and display lines from the file until the end of the file is reached
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        answer = answer + line;
-                    }
-                    return answer;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Display any errors that occurred during reading the file
-                print("An error occurred while reading the file:");
-                print(ex.Message);
-                return null;
-            }
-        }
-        else
-        {
-            print("The file does not exist.");
-            return null;
-        }
-    }
 
     // Update is called once per frame
     void Update()
