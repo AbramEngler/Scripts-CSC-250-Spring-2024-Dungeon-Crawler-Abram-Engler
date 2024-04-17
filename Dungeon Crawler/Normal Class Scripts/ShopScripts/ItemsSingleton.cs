@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ItemsSingleton
 {
-    int item1Cost = 3;
+    public static int item1Cost = 3;
 }
