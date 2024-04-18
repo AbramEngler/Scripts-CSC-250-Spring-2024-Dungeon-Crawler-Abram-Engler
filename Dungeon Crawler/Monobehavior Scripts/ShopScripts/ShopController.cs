@@ -13,7 +13,7 @@ public class ShopController : MonoBehaviour
     {
         this.updatePlayerTMP();
         this.itemTMP.text = "" + ItemsSingleton.item1Cost;
-        this.readItemsData();
+        //this.readItemsData();
 
         //read json file with serialization
         string jsonString = MySingleton.readJsonString();
@@ -35,51 +35,51 @@ public class ShopController : MonoBehaviour
         this.playerTMP.text = "Pellets: " + MySingleton.currentPellets + "(HP: " + MySingleton.thePlayer.getHP() + ")";
     }
 
-       private void readItemsData()
-    {
-        string filePath = "Assets/Data Files/Items_Data.txt"; // Path to the file
-        string answer = "";
+    //    private void readItemsData()
+    // {
+    //     string filePath = "Assets/Data Files/Items_Data.txt"; // Path to the file
+    //     string answer = "";
 
-        // Check if the file exists
-        if (File.Exists(filePath))
-        {
-            try
-            {
-                // Open the file to read from
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    string line;
-                    string[] itemParts = new string[3];
+    //     // Check if the file exists
+    //     if (File.Exists(filePath))
+    //     {
+    //         try
+    //         {
+    //             // Open the file to read from
+    //             using (StreamReader reader = new StreamReader(filePath))
+    //             {
+    //                 string line;
+    //                 string[] itemParts = new string[3];
 
-                    int pos = 0;
-                    // Read and display lines from the file until the end of the file is reached
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        string[] parts = line.Split(",");
-                        for (int i = 0; i < parts.Length; i++)
-                        {
-                            print(parts[i]);
-                            itemParts[pos % 3] = parts[i];
-                            pos++;
-                        }
-                        print("Manually parsed with Item Object");
-                        Item theItem = new Item(itemParts[0], itemParts[1], int.Parse(itemParts[2]));
-                        theItem.display();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Display any errors that occurred during reading the file
-                print("An error occurred while reading the file:");
-                print(ex.Message);
-            }
-        }
-        else
-        {
-            print("The file does not exist.");
-        }
-    }
+    //                 int pos = 0;
+    //                 // Read and display lines from the file until the end of the file is reached
+    //                 while ((line = reader.ReadLine()) != null)
+    //                 {
+    //                     string[] parts = line.Split(",");
+    //                     for (int i = 0; i < parts.Length; i++)
+    //                     {
+    //                         print(parts[i]);
+    //                         itemParts[pos % 3] = parts[i];
+    //                         pos++;
+    //                     }
+    //                     print("Manually parsed with Item Object");
+    //                     Item theItem = new Item(itemParts[0], itemParts[1], int.Parse(itemParts[2]));
+    //                     theItem.display();
+    //                 }
+    //             }
+    //         }
+    //         catch (Exception ex)
+    //         {
+    //             // Display any errors that occurred during reading the file
+    //             print("An error occurred while reading the file:");
+    //             print(ex.Message);
+    //         }
+    //     }
+    //     else
+    //     {
+    //         print("The file does not exist.");
+    //     }
+    // }
 
 
     // Update is called once per frame
