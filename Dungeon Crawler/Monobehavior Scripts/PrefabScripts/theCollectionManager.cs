@@ -1,136 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class theCollectionManager : MonoBehaviour
 {
-    public int itemPage = 0;
-    public int itemPerPage = 4;
-    public GameObject item1, item2, item3, item4, item5, item6, item7, item8;
-
-    //public GameObject[] itemArray;
-   
-    
+    public Material placeHolderMaterial, potionMaterial;
+    public GameObject itemPrefab;
+    private Vector3 startPosition;
+    private int itemSpawned = 0;
+    private int currentLeftPos = 0;
+    private List<GameObject> theItemsGO = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         //read json file with serialization
-         string jsonString = MySingleton.readJsonString();
-        
-        //         // Parse the JSON string
-        RootObject root = JsonUtility.FromJson<RootObject>(jsonString); //convert this JSON into a RootObject. turns text in JSON into a collection of Items
-
-        
-        // foreach (var item in root.items) //for each item in the item array, we will store that instance of item in items
-        // {
-        //     //formatted string, placeholders for the values we want to display
-        //     print($"Name: {item.name}, Stat Impacted: {item.stat_impacted}, Modifier: {item.modifier}");
-        // }
-        
-        
-    }
-
-    public void displaySelectedItem()
-    {
         string jsonString = MySingleton.readJsonString();
-        
-            // Parse the JSON string
+
+        // Parse the JSON string
         RootObject root = JsonUtility.FromJson<RootObject>(jsonString);
 
-        if(Input.GetKeyUp(KeyCode.Alpha1) && itemPage == 0)
-            {
-                root.items[0].display();
-            }
+        for(int i = 0; i < 8; i++)
+        {
         
-        else if(Input.GetKeyUp(KeyCode.Alpha2) && itemPage == 0)
+            this.startPosition = new Vector3(-3.8f + (this.itemSpawned * 2.45f), 0f, 0f);
+            GameObject newObject = Instantiate(this.itemPrefab, this.startPosition, Quaternion.identity);
+            TextMeshPro tmp = newObject.transform.GetChild(0).GetComponent<TextMeshPro>();
+            tmp.SetText(root.items[i].name + "\n Cost: " + root.items[i].cost + " pellets");
+            newObject.transform.SetParent(this.gameObject.transform);
+            newObject.transform.localPosition = this.startPosition;
+            newObject.transform.localRotation = Quaternion.identity;
+            if(this.itemSpawned >= 4)
             {
-                root.items[1].display();
+                newObject.SetActive(false);
             }
-
-        else if(Input.GetKeyUp(KeyCode.Alpha3) && itemPage == 0)
-            {
-                root.items[2].display();
-            }
+            this.itemSpawned++;
+            this.theItemsGO.Add(newObject);
+        }
         
-        else if(Input.GetKeyUp(KeyCode.Alpha4) && itemPage == 0)
-            {
-                root.items[3].display();
-            }
-        
-        else if(Input.GetKeyUp(KeyCode.Alpha1) && itemPage == 1)
-            {
-                root.items[4].display();
-            }
-        
-        else if(Input.GetKeyUp(KeyCode.Alpha2) && itemPage == 1)
-            {
-                root.items[5].display();
-            }
-        
-        else if(Input.GetKeyUp(KeyCode.Alpha3) && itemPage == 1)
-            {
-                root.items[6].display();
-            }
-        
-        else if(Input.GetKeyUp(KeyCode.Alpha4) && itemPage == 1)
-            {
-                root.items[7].display();
-            }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.displaySelectedItem();
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && itemPage > 0)
+        if(Input.GetKeyUp(KeyCode.LeftArrow) && this.currentLeftPos <= this.theItemsGO.Count - 5)
         {
-            string jsonString = MySingleton.readJsonString();
-        
-            // Parse the JSON string
-            RootObject root = JsonUtility.FromJson<RootObject>(jsonString);
-            itemPage--;
+            //move everything left one item
+            GameObject tempLeft = null, tempRight = null;
 
-            item1.SetActive(true);
+            //goes through our items and moves them appropriately and makes them visible/invisible as needed
+            for(int i = 0; i < this.theItemsGO.Count; i++)
+            {
+                this.theItemsGO[i].transform.Translate(Vector3.left * 10.0f);
+                if(i == this.currentLeftPos)
+                {
+                    tempLeft = this.theItemsGO[i];
+                }
 
-            item2.SetActive(true);
-            
+                if(i == this.currentLeftPos + 4)
+                {
+                    tempRight = this.theItemsGO[i];
+                }
+            }
+            tempLeft.SetActive(false);
+            tempRight.SetActive(true);
+            this.currentLeftPos++;
 
-            item3.SetActive(true);
-            
-
-            item4.SetActive(true);
-            
-
-            item5.SetActive(false);
-            item6.SetActive(false);
-            item7.SetActive(false);
-            item8.SetActive(false);
         }
-       if (Input.GetKeyUp(KeyCode.RightArrow) && itemPage < 1)
+        else if (Input.GetKeyUp(KeyCode.RightArrow) && this.currentLeftPos >= 1)
         {
-            string jsonString = MySingleton.readJsonString();
-        
-            // Parse the JSON string
-            RootObject root = JsonUtility.FromJson<RootObject>(jsonString);
-            itemPage++;
-            item5.SetActive(true);
-            
+            //move everything left one item
+            GameObject tempLeft = null, tempRight = null;
 
-            item6.SetActive(true);
-            
+            for (int i = 0; i < this.theItemsGO.Count; i++)
+            {
+                this.theItemsGO[i].transform.Translate(Vector3.right * 10.0f);
+                if (i == this.currentLeftPos - 1)
+                {
+                    tempLeft = this.theItemsGO[i];
+                }
 
-            item7.SetActive(true);
-            
+                if (i == this.currentLeftPos + 3)
+                {
+                    tempRight = this.theItemsGO[i];
+                }
+            }
+            tempLeft.SetActive(true);
+            tempRight.SetActive(false);
+            this.currentLeftPos--;
 
-            item8.SetActive(true);
-            
-
-            item1.SetActive(false);
-            item2.SetActive(false);
-            item3.SetActive(false);
-            item4.SetActive(false);
         }
     }
 }
