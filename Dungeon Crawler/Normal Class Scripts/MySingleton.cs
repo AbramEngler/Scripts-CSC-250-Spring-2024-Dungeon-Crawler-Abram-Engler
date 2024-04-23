@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.IO;
 using System;
 
@@ -51,6 +52,49 @@ public class MySingleton
             return null;
         }
     }
+
+    // public static string readJsonPokeAPI()
+    // {
+    //     using (UnityWebRequest webRequest = UnityWebRequest.Get("https://pokeapi.co/api/v2/pokemon?limit=1303&offset=0"));
+    //     {
+            
+    //     }
+    //     yield return webRequest.SendWebRequest();
+    //     string PokeAPI = ; // Path to the file
+    //     string answer = ""; //this function ultimately gives us a string
+
+    //     // Check if the file exists
+    //     if (File.Exists(filePath))
+    //     {
+    //         try
+    //         {
+    //             Debug.Log("Serialized JSON Parsing");
+    //             // Open the file to read from
+    //             using (StreamReader reader = new StreamReader(filePath))
+    //             {
+    //                 string line;
+    //                 // Read and display lines from the file until the end of the file is reached
+    //                 while ((line = reader.ReadLine()) != null)
+    //                 {
+    //                     answer = answer + line;
+    //                 }
+    //                 return answer;
+    //             }
+    //         }
+    //         catch (Exception ex)
+    //         {
+    //             // Display any errors that occurred during reading the file
+    //             Debug.Log("An error occurred while reading the file:");
+    //             Debug.Log(ex.Message);
+    //             return null;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("The file does not exist.");
+    //         return null;
+    //     }
+    // }
 
     public static string flipDirection(string direction)
     {
