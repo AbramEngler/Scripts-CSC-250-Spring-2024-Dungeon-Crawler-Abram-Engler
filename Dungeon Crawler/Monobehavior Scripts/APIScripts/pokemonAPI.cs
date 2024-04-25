@@ -36,15 +36,15 @@ public class pokemonAPI : MonoBehaviour
                 //print(webRequest.downloadHandler.text);
                 // Or retrieve results as binary data
                 //byte[] results = webRequest.downloadHandler.data;
-                CollectionOfPokemon pokemon = JsonUtility.FromJson<CollectionOfPokemon>(webRequest.downloadHandler.text);
+                CollectionOfPokemon theCollectionOfPokemon = JsonUtility.FromJson<CollectionOfPokemon>(webRequest.downloadHandler.text);
 
-                for(int i = 0; i < 1302; i++)
+                for(int i = 0; i < theCollectionOfPokemon.count; i++)
                 {
                 
                     this.startPosition = new Vector3(-3.8f + (this.itemSpawned * 2.45f), 0f, 0f);
                     GameObject newObject = Instantiate(this.itemPrefab, this.startPosition, Quaternion.identity);
                     TextMeshPro tmp = newObject.transform.GetChild(0).GetComponent<TextMeshPro>();
-                    tmp.SetText(pokemon.results[i].name + "\n \n URL: " + pokemon.results[i].url);
+                    tmp.SetText(theCollectionOfPokemon.results[i].name + "\n \n URL: " + theCollectionOfPokemon.results[i].url);
                     newObject.transform.SetParent(this.gameObject.transform);
                     newObject.transform.localPosition = this.startPosition;
                     newObject.transform.localRotation = Quaternion.identity;
